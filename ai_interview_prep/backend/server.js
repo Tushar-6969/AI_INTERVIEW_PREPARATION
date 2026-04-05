@@ -12,7 +12,10 @@ const {generateInterviewQuestions,generateConceptExplanation}=require("./control
 // middleware to handle cors 
 
 app.use(cors({
-    origin:"*",
+    origin: [
+  "http://localhost:5173",
+  "https://ai-interview-preparation-frontend.onrender.com",
+],
     methods:["GET","POST","DELETE"],
     allowedHeaders:["Content-Type","Authorization"]
 }))
