@@ -137,11 +137,11 @@ Example:
 - Generated AI Questions
 - Session Details Page
 
-```md
+
 ![Login Page](./screenshots/login.png)
 ![Dashboard](./screenshots/dashboard.png)
 ![Interview Session](./screenshots/session.png)
-```
+
 
 ---
 
