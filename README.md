@@ -126,7 +126,7 @@ Users can remove unwanted interview sessions from the dashboard.
 
 ---
 
-## 📸 Screenshots (Optional)
+## 📸 Screenshots
 
 > Add your project screenshots here for a stronger GitHub portfolio.
 
