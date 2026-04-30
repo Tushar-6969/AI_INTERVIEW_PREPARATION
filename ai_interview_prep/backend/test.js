@@ -1,7 +1,7 @@
 require("dotenv").config();
 const axios = require("axios");
 
-// -------- CONFIG --------
+// -------- CONFIG ----------
 const API_KEY = process.env.GROQ_API_KEY;
 
 a34b21d1-fbc6-451b-9b9a-6212879cf2d3:c6b46324633c7b834e26d83d7c20ac62
