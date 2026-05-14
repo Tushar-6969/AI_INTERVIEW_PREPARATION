@@ -10,6 +10,7 @@ const authRoutes=require("./routes/authRoutes.js")
 const sessionRoutes=require("./routes/sessionRoutes.js")
 const questionRoutes=require("./routes/questionRoutes.js")
 const {generateInterviewQuestions,generateConceptExplanation}=require("./controllers/aiController.js")
+
 // middleware to handle cors 
 
 app.use(cors({
