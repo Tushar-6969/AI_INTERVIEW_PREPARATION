@@ -9,6 +9,7 @@ import DashboardLayout from '../../components/layouts/DashboardLayout'
 import RoleInfoHeader from "./components/RoleInfoHeader"
 import axiosInstance from '../../utils/axiosInstance'
 import { API_PATHS } from '../../utils/apiPaths'
+import { getApiErrorMessage } from '../../utils/errorMessages'
 import QuestionCard from '../../components/Cards/QuestionCard'
 import AIResponsePreview from './components/AIResponsePreview'
 import Drawer from '../../components/Drawer'
@@ -52,7 +53,7 @@ const Interview_Prep = () => {
       }
     } catch (err) {
       setExplanation(null)
-      setErrorMsg("Failed to generate explanation, try again later.")
+      setErrorMsg(getApiErrorMessage(err, "Failed to generate explanation, try again later."))
       console.error("error:", err)
     } finally {
       setIsLoading(false)
@@ -103,7 +104,7 @@ const Interview_Prep = () => {
       if (err.response && err.response.data.message) {
         setErrorMsg(err.response.data.message)
       } else {
-        setErrorMsg("Something went wrong, try again.")
+        setErrorMsg(getApiErrorMessage(err, "Something went wrong, try again."))
       }
     } finally {
       setIsUpdateLoader(false)

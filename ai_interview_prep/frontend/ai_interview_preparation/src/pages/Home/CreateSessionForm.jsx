@@ -4,6 +4,7 @@ import Input from "../../components/Inputs/input"
 import axiosInstance from '../../utils/axiosInstance'
 import { API_PATHS } from '../../utils/apiPaths'
 import SpinnerLoader from '../../components/Loader/SpinnerLoader'
+import { getApiErrorMessage } from '../../utils/errorMessages'
 const CreateSessionForm = () => {
 
     const [formData, setFormData] = useState({
@@ -55,6 +56,8 @@ const CreateSessionForm = () => {
         catch (err) {
             if (err.response && err.response.data.messsage) {
                 setError(" something went woring ")
+            } else {
+                setError(getApiErrorMessage(err, " something went woring "))
             }
         }
         finally {

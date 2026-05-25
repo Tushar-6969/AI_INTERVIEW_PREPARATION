@@ -5,6 +5,7 @@ import { validateEmail } from "../../utils/helper";
 import { BASE_URL, API_PATHS } from "../../utils/apiPaths";
 import axiosInstance from "../../utils/axiosInstance"
 import {UserContext} from "../../context/userContext"
+import { getApiErrorMessage } from "../../utils/errorMessages";
 const Login = ({ setCurrentPage }) => {
 
   const [email, setEmail] = useState("");
@@ -81,7 +82,7 @@ const handleLogin = async (e) => {
     if (error.response && error.response.data.message) {
       setError(error.response.data.message);
     } else {
-      setError("Something went wrong. Try again.");
+      setError(getApiErrorMessage(error, "Something went wrong. Try again."));
     }
   }
 };

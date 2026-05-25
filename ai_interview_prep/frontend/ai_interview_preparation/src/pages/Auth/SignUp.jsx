@@ -6,6 +6,7 @@ import { UserContext } from "../../context/userContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
+import { getApiErrorMessage } from "../../utils/errorMessages";
 const SignUp = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
   const [fullName, setFullName] = useState("");
@@ -73,7 +74,7 @@ if(error.response && error.response.data.message){
     setError(error.response.data.message)
 }
 else{
-    setError("something went wrong try again ")
+    setError(getApiErrorMessage(error, "something went wrong try again "))
 }
 }
 

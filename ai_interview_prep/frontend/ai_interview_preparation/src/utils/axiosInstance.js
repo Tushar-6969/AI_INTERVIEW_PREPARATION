@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BASE_URL } from "./apiPaths";
+import { BACKEND_WAKE_MESSAGE } from "./errorMessages";
 
 // Create Axios instance
 const axiosInstance = axios.create({
@@ -52,13 +53,16 @@ axiosInstance.interceptors.response.use(
         // Redirect to login page
         // window.location.href = "/";
       } else if (status === 500) {
+        err.userMessage = BACKEND_WAKE_MESSAGE;
         console.error("Server error. Please try again later.");
       }
     } 
     else if (err.code === "ECONNABORTED") {
+      err.userMessage = BACKEND_WAKE_MESSAGE;
       console.error("Request timeout. Please try again.");
     } 
     else {
+      err.userMessage = BACKEND_WAKE_MESSAGE;
       console.error("Unexpected error:", err.message);
     }
 

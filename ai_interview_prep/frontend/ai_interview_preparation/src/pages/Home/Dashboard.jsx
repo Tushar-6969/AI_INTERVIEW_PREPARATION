@@ -6,6 +6,7 @@ import DashboardLayout from "../../components/layouts/DashboardLayout";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
+import { getApiErrorMessage } from "../../utils/errorMessages";
 import moment from "moment";
 import CreateSessionForm from "./CreateSessionForm";
 import SummaryCard from "../../components/Cards/SummaryCard";
@@ -39,7 +40,7 @@ const Dashboard = () => {
       setSessions(sessionData);
     } catch (err) {
       console.error("Error fetching sessions:", err);
-      toast.error("Failed to fetch sessions");
+      toast.error(getApiErrorMessage(err, "Failed to fetch sessions"));
       setSessions([]);
     } finally {
       setLoading(false);
@@ -62,7 +63,7 @@ const Dashboard = () => {
 
     } catch (err) {
       console.error("Delete error:", err);
-      toast.error("Failed to delete session");
+      toast.error(getApiErrorMessage(err, "Failed to delete session"));
     }
   };
 

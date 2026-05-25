@@ -36,11 +36,11 @@ else{
 
   return (
     <>
-      <div className="w-full min-h-screen bg-[#fffcef] relative">
+      <div className="w-full bg-[#fffcef] relative">
         <div className="w-[500px] h-[500px] bg-amber-200/20 blur-[65px] absolute top-0 left-0" />
 
         {/* ⛔ pb-[200px] → ✅ pb-24 */}
-        <div className="container mx-auto px-4 pt-6 pb-24 relative z-10">
+        <div className="container mx-auto px-4 pt-6 pb-10 relative z-10">
           {/* header */}
           <header className="flex justify-between items-center">
             <div className="text-xl text-black font-bold">
@@ -99,7 +99,7 @@ else{
 
       {/* hero image */}
       {/* ⛔ -mt-36 removed → natural spacing */}
-      <section className="flex items-center justify-center mt-8">
+      <section className="flex items-center justify-center bg-[#fffcef] pt-2">
         <img
           src={Hero_png}
           alt="Hero"
