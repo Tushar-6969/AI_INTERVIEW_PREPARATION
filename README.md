@@ -257,7 +257,6 @@ AI_API_KEY=your_ai_api_key
 - ✅ Add **export to PDF**
 - ✅ Add **bookmark/favorite sessions**
 - ✅ Add **analytics dashboard** for progress tracking
-- ✅ Add **coding challenge mode**
 
 ---
 
