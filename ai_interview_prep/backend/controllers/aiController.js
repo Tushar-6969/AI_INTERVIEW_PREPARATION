@@ -21,7 +21,7 @@ async function callGroq(prompt) {
           model,
           messages: [{ role: "user", content: prompt }],
           temperature: 0.7,
-          max_tokens: 1024,
+          max_tokens: 8192,
         },
         {
           headers: {
@@ -49,6 +49,31 @@ async function callGroq(prompt) {
   throw new Error(lastError?.response?.data?.error?.message || "Groq model unavailable");
 }
 
+function parseJsonResponse(rawText) {
+  const cleanedText = rawText
+    .replace(/^```(?:json)?\s*/i, "")
+    .replace(/\s*```$/i, "")
+    .trim();
+
+  try {
+    return JSON.parse(cleanedText);
+  } catch {
+    const start = cleanedText.indexOf("[");
+    const end = cleanedText.lastIndexOf("]");
+    if (start !== -1 && end > start) {
+      return JSON.parse(cleanedText.slice(start, end + 1));
+    }
+
+    const objectStart = cleanedText.indexOf("{");
+    const objectEnd = cleanedText.lastIndexOf("}");
+    if (objectStart !== -1 && objectEnd > objectStart) {
+      return JSON.parse(cleanedText.slice(objectStart, objectEnd + 1));
+    }
+
+    throw new Error("AI returned invalid JSON");
+  }
+}
+
 const generateInterviewQuestions = async (req, res) => {
   try {
     const { role, experience, topicsToFocus, numberOfQuestions } = req.body;
@@ -59,12 +84,10 @@ const generateInterviewQuestions = async (req, res) => {
 
     const prompt = questionAnswerPrompt(role, experience, topicsToFocus, numberOfQuestions);
     const rawText = await callGroq(prompt);
-    const cleanedText = rawText.replace(/^```json\s*/, "").replace(/```$/, "").trim();
-
     let data;
 
     try {
-      data = JSON.parse(cleanedText);
+      data = parseJsonResponse(rawText);
     } catch {
       return res.status(500).json({
         message: "AI returned invalid JSON",
@@ -88,12 +111,10 @@ const generateConceptExplanation = async (req, res) => {
 
     const prompt = conceptExplainPrompt(question);
     const rawText = await callGroq(prompt);
-    const cleanedText = rawText.replace(/^```json\s*/, "").replace(/```$/, "").trim();
-
     let data;
 
     try {
-      data = JSON.parse(cleanedText);
+      data = parseJsonResponse(rawText);
     } catch {
       return res.status(500).json({
         message: "AI returned invalid JSON",
