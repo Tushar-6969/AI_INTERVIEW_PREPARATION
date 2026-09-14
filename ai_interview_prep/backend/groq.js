@@ -96,4 +96,5 @@ async function askGemini(extractedText = "", userPrompt = "", fileType = "") {
   return "<p style='color:red;'>Failed to fetch response from AI.</p>";
 }
 
+
 module.exports = { askGemini };
