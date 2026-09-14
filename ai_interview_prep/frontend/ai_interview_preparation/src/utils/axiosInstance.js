@@ -43,26 +43,25 @@ axiosInstance.interceptors.response.use(
     // Global error handling
     if (err.response) {
       const status = err.response.status;
+      const serverMessage = err.response?.data?.message || "";
 
       if (status === 401) {
         console.error("Unauthorized. Redirecting to login...");
-        
-        // Optional: clear invalid token
-        // localStorage.removeItem("token");
-
-        // Redirect to login page
-        // window.location.href = "/";
+        err.userMessage = serverMessage || "Your session has expired. Please log in again.";
       } else if (status === 500) {
-        err.userMessage = BACKEND_WAKE_MESSAGE;
-        console.error("Server error. Please try again later.");
+        if (serverMessage.toLowerCase().includes("ai returned invalid json") || serverMessage.toLowerCase().includes("failed to generate")) {
+          err.userMessage = "The AI service is currently unavailable. Please try again in a moment.";
+        } else {
+          err.userMessage = "Something went wrong on the server. Please try again.";
+        }
+      } else {
+        err.userMessage = serverMessage || "Something went wrong. Please try again.";
       }
-    } 
-    else if (err.code === "ECONNABORTED") {
+    } else if (err.code === "ECONNABORTED") {
       err.userMessage = BACKEND_WAKE_MESSAGE;
       console.error("Request timeout. Please try again.");
-    } 
-    else {
-      err.userMessage = BACKEND_WAKE_MESSAGE;
+    } else {
+      err.userMessage = "Something went wrong. Please try again.";
       console.error("Unexpected error:", err.message);
     }
 

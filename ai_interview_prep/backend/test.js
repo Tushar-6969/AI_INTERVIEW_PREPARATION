@@ -19,14 +19,17 @@ in this image change cloth from black to red dresss image link="https://res.clou
 axios.post(
   "https://api.groq.com/openai/v1/chat/completions",
   {
-    model: "llama-3.3-70b-versatile",
+    model: process.env.GROQ_MODEL || "openai/gpt-oss-20b",
     messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+    max_tokens: 512,
   },
   {
     headers: {
       Authorization: `Bearer ${API_KEY}`,
       "Content-Type": "application/json",
     },
+    timeout: 30000,
   }
 )
 .then(res => {
