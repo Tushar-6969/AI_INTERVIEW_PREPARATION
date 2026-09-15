@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { fal } from "@fal-ai/client";
 
-// fal docs recommend using FAL_KEY env variable in server-side runtime
+// fal docs recommend using FAL_KEY env variable in server-side runtime ( temp2 )
 // but this is okay too if needed:
 fal.config({ credentials: "a34b21d1-fbc6-451b-9b9a-6212879cf2d3:c6b46324633c7b834e26d83d7c20ac62" });
 
